@@ -1,21 +1,52 @@
 import { composePlugins, withNx } from '@nx/webpack';
-import { withReact } from '@nx/react';
-import { withModuleFederation } from '@nx/react/module-federation';
+// import path from 'path';
+import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 
-import baseConfig from './module-federation.config';
-
-const config = {
-  ...baseConfig,
-};
-
-// Nx plugins for webpack to build config object from Nx options and context.
-/**
- * DTS Plugin is disabled in Nx Workspaces as Nx already provides Typing support Module Federation
- * The DTS Plugin can be enabled by setting dts: true
- * Learn more about the DTS Plugin here: https://module-federation.io/configure/dts.html
- */
 export default composePlugins(
   withNx(),
-  withReact(),
-  withModuleFederation(config, { dts: false })
+  (config) => {
+    config.plugins = [
+      ...(config.plugins || []),
+      new HtmlWebpackPlugin({
+        template: './src/index.html', // Path to your index.html
+        filename: 'index.html', // Output file name
+      }),
+    ];
+
+    config.resolve = {
+      ...config.resolve,
+      alias: {
+        ...(config.resolve?.alias || {}),
+      },
+      extensions: ['.mjs', '.js', '.ts', '.svelte'],
+      mainFields: ['svelte', 'browser', 'module', 'main'],
+    };
+
+    config.module = {
+      ...config.module,
+      rules: [
+        {
+          test: /\.svelte$/,
+          use: {
+            loader: 'svelte-loader',
+            options: {
+              emitCss: true,
+              hotReload: true,
+            },
+          },
+        },
+        {
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader'],
+        },
+        {
+          test: /\.ts$/,
+          loader: 'ts-loader',
+          exclude: /node_modules/,
+        },
+      ],
+    };
+
+    return config;
+  }
 );

@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "cart/Module": ["apps/cart/src/app/app.component.ts"],
+      "cart/Module": ["apps/cart/src/bootstrap.ts"],
       "products/Module": ["apps/products/src/remote-entry.ts"]
     }
   },

@@ -1,16 +1,19 @@
-import { Component, Injector } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { createCustomElement } from '@angular/elements';
+import { Component } from '@angular/core';
 
 @Component({
   standalone: true,
-  imports: [CommonModule],
-  selector: 'app-cart-entry',
-  template: `<h1>Hello From Angular!</h1>>`,
+  selector: 'app-cart-component',
+  template: `
+    <div className="wrapper">
+      <div className="container">
+        <div id="welcome">
+        <h1>
+            <span> Hello there, </span>
+            Welcome Cart 👋
+          </h1>
+        </div>
+      </div>
+    </div>
+  `,
 })
-export class RemoteEntryComponent {
-  constructor(private injector: Injector) {
-    const webComponent = createCustomElement(RemoteEntryComponent, { injector: this.injector });
-    customElements.define('app-cart-entry', webComponent);
-  }
-}
+export class AppComponent { }

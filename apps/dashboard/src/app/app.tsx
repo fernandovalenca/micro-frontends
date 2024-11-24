@@ -1,5 +1,6 @@
 import 'zone.js';
 import { bootstrap } from 'cart/Module';
+// @ts-ignore
 import { default as ProductsApp } from 'products/Module';
 import { useEffect, useRef } from 'react';
 

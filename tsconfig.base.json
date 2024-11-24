@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "budget/Module": ["apps/budget/src/remote-entry.ts"],
       "cart/Module": ["apps/cart/src/bootstrap.ts"],
       "products/Module": ["apps/products/src/App.svelte"]
     }

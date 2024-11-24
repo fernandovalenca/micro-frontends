@@ -16,7 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "cart/Module": ["apps/cart/src/bootstrap.ts"],
-      "products/Module": ["apps/products/src/remote-entry.ts"]
+      "products/Module": ["apps/products/src/App.svelte"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -1,11 +1,14 @@
 <script>
-    let name = 'World';
-  </script>
-  
-  <style>
-    h1 {
-      color: purple;
-    }
-  </style>
-  
-  <h1>Hello {name}!</h1>
+  import './styles.css';
+</script>
+
+<div class="wrapper">
+    <div class="container">
+      <div id="welcome">
+        <h1>
+          <span> Hello there, </span> 
+          Welcome Products 👋
+        </h1>
+      </div>
+    </div>
+  </div>

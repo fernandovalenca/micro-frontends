@@ -1,16 +1,26 @@
 import { composePlugins, withNx } from '@nx/webpack';
-// import path from 'path';
+import { container } from 'webpack';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
+import mfConfig from './module-federation.config';
+
+const { ModuleFederationPlugin } = container;
 
 export default composePlugins(
   withNx(),
   (config) => {
+    config.output = {
+      ...(config.output || {}),
+      uniqueName: 'products',
+      scriptType: 'text/javascript',
+      publicPath: 'auto',
+    };
     config.plugins = [
       ...(config.plugins || []),
       new HtmlWebpackPlugin({
         template: './src/index.html', // Path to your index.html
         filename: 'index.html', // Output file name
       }),
+      new ModuleFederationPlugin(mfConfig),
     ];
 
     config.resolve = {

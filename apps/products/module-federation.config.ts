@@ -1,12 +1,8 @@
-import { container } from 'webpack';
-const { ModuleFederationPlugin } = container;
 
-type ModuleFederationPluginOptions = ConstructorParameters<typeof ModuleFederationPlugin>[0];
+import { ModuleFederationConfig } from '@nx/webpack';
 
-const config: ModuleFederationPluginOptions = {
+const config: ModuleFederationConfig = {
   name: 'products',
-  filename: 'remoteEntry.js',
-  remoteType: 'script',
   exposes: {
     './Module': './src/App.svelte',
   },

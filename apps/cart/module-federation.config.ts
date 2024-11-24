@@ -1,4 +1,4 @@
-import { ModuleFederationConfig, sharePackages } from '@nx/webpack';
+import { ModuleFederationConfig } from '@nx/webpack';
 
 const config: ModuleFederationConfig = {
   name: 'cart',

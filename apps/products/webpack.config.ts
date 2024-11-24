@@ -1,12 +1,11 @@
 import { composePlugins, withNx } from '@nx/webpack';
-import { container } from 'webpack';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import mfConfig from './module-federation.config';
-
-const { ModuleFederationPlugin } = container;
+import { withModuleFederation } from '@nx/react/module-federation';
 
 export default composePlugins(
   withNx(),
+  withModuleFederation(mfConfig, { dts: false }),
   (config) => {
     config.output = {
       ...(config.output || {}),
@@ -20,7 +19,6 @@ export default composePlugins(
         template: './src/index.html', // Path to your index.html
         filename: 'index.html', // Output file name
       }),
-      new ModuleFederationPlugin(mfConfig),
     ];
 
     config.resolve = {

@@ -1,5 +1,6 @@
 import 'zone.js';
 import { bootstrap } from 'cart/Module';
+import { default as ProductsApp } from 'products/Module';
 import { useEffect, useRef } from 'react';
 
 export function App() {
@@ -9,12 +10,8 @@ export function App() {
   useEffect(() => {
     if (!isMounted.current) {
       bootstrap();
-      // @ts-ignore
-      import('products/Module').then((module) => {
-        const { default: App } = module;
-        new App({
-          target: productsRef.current,
-        });
+      new ProductsApp({
+        target: productsRef.current,
       });
       isMounted.current = true;
     }

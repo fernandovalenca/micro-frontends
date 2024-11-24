@@ -1,3 +1,3 @@
 declare module '*.svelte' {
-    export { ComponentType } from 'svelte';
-  }
+  export { SvelteComponent } from 'svelte';
+}

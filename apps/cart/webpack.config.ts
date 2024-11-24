@@ -1,6 +1,6 @@
 import { composePlugins } from '@nx/webpack';
-import { withModuleFederation } from '@nx/angular/module-federation';
 import config from './module-federation.config';
+import { withModuleFederation } from '@nx/react/module-federation';
 
 /**
  * DTS Plugin is disabled in Nx Workspaces as Nx already provides Typing support for Module Federation
@@ -10,14 +10,14 @@ import config from './module-federation.config';
 export default composePlugins(
     withModuleFederation(config, {
         dts: false,
-        // @ts-expect-error lib needs to define it
-        filename: 'remoteEntry.js',
-        library: undefined,
     }),
     (config) => {
-        if(config.output){
-            config.output.scriptType = 'text/javascript';
-        }
+        config.output = {
+            ...(config.output || {}),
+            uniqueName: 'cart',
+            scriptType: 'text/javascript',
+            publicPath: 'auto',
+        };
         return config;
     }
 );

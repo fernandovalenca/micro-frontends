@@ -1,7 +1,10 @@
+// @ts-ignore
 import App from './App.svelte';
 
-const app = new App({
-    target: document.body,
-});
 
-export default app;
+export const bootstrap = (container: HTMLElement) => {
+    const app = new App({
+        target: container,
+    });
+    return app;
+};

@@ -1,12 +1,19 @@
 <template>
-  <div id="app">
-    <h1>Hello, Vue with Webpack!</h1>
+  <div className="wrapper">
+    <div className="container">
+      <div id="welcome">
+        <h1>
+          <span> Hello there, </span>
+          Welcome Budget 👋
+        </h1>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "App",
+  name: 'App',
 };
 </script>
 

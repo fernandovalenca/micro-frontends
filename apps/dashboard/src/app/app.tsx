@@ -1,22 +1,24 @@
 import 'zone.js';
-import { bootstrap } from 'cart/Module';
-// @ts-ignore
-import { default as ProductsApp } from 'products/Module';
 import { useEffect, useRef } from 'react';
 
 export function App() {
   const isMounted = useRef(false);
-  const productsRef = useRef<any>(null);
-  
+
   useEffect(() => {
     if (!isMounted.current) {
-      bootstrap();
-      new ProductsApp({
-        target: productsRef.current,
-      });
+      loadModules();
       isMounted.current = true;
     }
   }, []);
+
+  const loadModules = async () => {
+    const { bootstrap: bootstrapCart } = await import('cart/Module');
+    const { bootstrap: bootstrapBudget } = await import('budget/Module');
+    const { bootstrap: bootstrapProducts } = await import('products/Module');
+    bootstrapCart(); // load angular cart app
+    bootstrapBudget('#budget'); // load vue budget app
+    bootstrapProducts(document.getElementById('products') as HTMLElement); // load svelte products app
+  };
 
   return (
     <div className="wrapper">
@@ -28,11 +30,12 @@ export function App() {
           </h1>
         </div>
       </div>
-      <div id="products" ref={productsRef} />
+      <div id="products" />
       <div id="cart">
         {/* @ts-ignore */}
         <app-cart-component />
       </div>
+      <div id="budget" />
     </div>
   );
 }

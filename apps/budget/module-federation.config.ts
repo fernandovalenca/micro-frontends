@@ -3,7 +3,7 @@ import { ModuleFederationConfig } from '@nx/webpack';
 const config: ModuleFederationConfig = {
   name: 'budget',
   exposes: {
-    './Module': './src/App.vue',
+    './Module': './src/bootstrap.ts',
   },
 };
 

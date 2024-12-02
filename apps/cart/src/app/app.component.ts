@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { config } from '@micro-frontends/shared';
 @Component({
   standalone: true,
   imports: [CommonModule],
@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   template: `
     <div class="simple-card">
       <div class="header">
-        <img src="http://localhost:4201/logo.png" alt="Logo" class="logo" />
+        <img [src]="logoUrl" alt="Logo" class="logo" />
         <h1>
           <span>Hello there,</span> Welcome to Cart 👋
         </h1>
@@ -41,6 +41,7 @@ import { CommonModule } from '@angular/common';
   `,
 })
 export class AppComponent {
+  logoUrl = `${config.cartUrl}/logo.png`;
   cartProducts = [
     { id: 1, name: 'Product 1', price: 10 },
     { id: 2, name: 'Product 2', price: 20 },

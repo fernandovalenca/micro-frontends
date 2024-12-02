@@ -1,7 +1,7 @@
 <template>
   <div class="simple-card">
     <div class="header">
-      <img src="http://localhost:4203/assets/logo.png" alt="Logo" class="logo" />
+      <img :src="logoUrl" alt="Logo" class="logo" />
       <h1>Budget App</h1>
       <p>Track your expenses and budget effectively.</p>
     </div>
@@ -38,10 +38,14 @@
 <script>
 import Chart from 'chart.js/auto';
 import '@micro-frontends/shared-styles';
+import { config } from '@micro-frontends/shared';
+
+const logoUrl = `${config.budgetUrl}/assets/logo.png`;
 
 export default {
   data() {
     return {
+      logoUrl,
       budget: 0,
       expenses: [
         { name: 'Rent', price: 1000 },

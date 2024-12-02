@@ -1,25 +1,73 @@
 <template>
-  <div className="wrapper">
-    <div className="container">
-      <div id="welcome">
-        <h1>
-          <span> Hello there, </span>
-          Welcome Budget 👋
-        </h1>
+  <div class="simple-card">
+    <div class="header">
+      <img src="http://localhost:4203/assets/logo.png" alt="Logo" class="logo" />
+      <h1>Budget App</h1>
+      <p>Track your expenses and budget effectively.</p>
+    </div>
+
+    <div class="content">
+      <h2>Budget Input</h2>
+      <input type="number" placeholder="Enter your budget" v-model="budget" />
+
+      <h2>Budget vs Expenses Chart</h2>
+      <div id="chart">
+        <!-- Placeholder for Chart -->
+        <canvas id="budgetChart"></canvas>
       </div>
+
+      <h2>Expense List</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in expenses" :key="item.name">
+            <td>{{ item.name }}</td>
+            <td>{{ item.price }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
 
 <script>
+import Chart from 'chart.js/auto';
+import '@micro-frontends/shared-styles';
+
 export default {
-  name: 'App',
+  data() {
+    return {
+      budget: 0,
+      expenses: [
+        { name: 'Rent', price: 1000 },
+        { name: 'Groceries', price: 200 },
+      ],
+    };
+  },
+  mounted() {
+    this.renderChart();
+  },
+  methods: {
+    renderChart() {
+      const ctx = document.getElementById('budgetChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Remaining Budget', 'Expenses'],
+          datasets: [
+            {
+              data: [this.budget - this.expenses.reduce((a, b) => a + b.price, 0), this.expenses.reduce((a, b) => a + b.price, 0)],
+              backgroundColor: ['#007bff', '#ff4d4d'],
+            },
+          ],
+        },
+      });
+    },
+  },
 };
 </script>
-
-<style>
-#app {
-  font-family: Arial, sans-serif;
-  text-align: center;
-}
-</style>

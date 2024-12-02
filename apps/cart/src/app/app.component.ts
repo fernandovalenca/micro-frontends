@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { config } from '@micro-frontends/shared';
+import { config } from 'libs/shared/src/index';
 @Component({
   standalone: true,
   imports: [CommonModule],

@@ -21,21 +21,21 @@ export function App() {
   };
 
   return (
-    <div className="wrapper">
-      <div className="container">
-        <div id="welcome">
-          <h1>
-            <span> Hello there, </span>
-            Welcome Dashboard 👋
-          </h1>
+    <div className="container">
+      <div id="welcome">
+        <h1>
+          <span> Hello there, </span>
+          Welcome Dashboard 👋
+        </h1>
+      </div>
+      <div className="apps-container">
+        <div id="products" />
+        <div id="cart">
+          {/* @ts-ignore */}
+          <app-cart-component />
         </div>
+        <div id="budget" />
       </div>
-      <div id="products" />
-      <div id="cart">
-        {/* @ts-ignore */}
-        <app-cart-component />
-      </div>
-      <div id="budget" />
     </div>
   );
 }

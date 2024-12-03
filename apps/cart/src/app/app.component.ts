@@ -10,25 +10,24 @@ import { config } from 'libs/shared/src/index';
       <div class="header">
         <img [src]="logoUrl" alt="Logo" class="logo" />
         <h1>
-          <span>Hello there,</span> Welcome to Cart 👋
+          Cart App 👋
         </h1>
       </div>
       <div class="content">
-        <h2>Your Cart</h2>
         <table *ngIf="cartProducts.length > 0; else emptyCart">
           <thead>
             <tr>
               <th>Product Name</th>
               <th>Price</th>
-              <th>Actions</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let product of cartProducts; let i = index">
               <td>{{ product.name }}</td>
               <td>\${{ product.price }}</td>
-              <td>
-                <button (click)="removeFromCart(i)" class="btn">Remove</button>
+              <td class="select-column">
+                <button (click)="removeFromCart(i)">-</button>
               </td>
             </tr>
           </tbody>
@@ -39,6 +38,16 @@ import { config } from 'libs/shared/src/index';
       </div>
     </div>
   `,
+  styles: [
+    `
+      .select-column {
+        width: 2rem;
+      }
+      .select-column button:hover {
+        cursor: pointer;
+      }
+    `,
+  ],
 })
 export class AppComponent {
   logoUrl = `${config.cartUrl}/logo.png`;

@@ -20,27 +20,20 @@
     selectedCount = selectedProducts.size;
   }
 
-  function addToCart() {
-    if (selectedCount > 0) {
-      const selected = products.filter(product => selectedProducts.has(product.id));
-      alert(`Added ${selected.map(p => p.name).join(', ')} to cart!`);
-    }
-  }
 </script>
 
 <div class="simple-card">
   <div class="header">
     <img src="{logoUrl}" alt="Logo" class="logo" />
     <h1>
-      <span>Hello there,</span> Welcome to Products 👋
+      Products App 👋
     </h1>
   </div>
   <div class="content">
-    <h2>Product List</h2>
     <table>
       <thead>
         <tr>
-          <th>Select</th>
+          <th></th>
           <th>Name</th>
           <th>Price</th>
         </tr>
@@ -57,8 +50,11 @@
         {/each}
       </tbody>
     </table>
-    <button class="btn" disabled={selectedCount === 0} on:click={addToCart}>
-      Add to Cart
-    </button>
   </div>
 </div>
+
+<style>
+  .select-column {
+    width: 2rem;
+  }
+</style>

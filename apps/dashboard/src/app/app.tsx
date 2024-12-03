@@ -1,5 +1,6 @@
 import 'zone.js';
 import { useEffect, useRef } from 'react';
+import '@micro-frontends/shared-styles'
 
 export function App() {
   const isMounted = useRef(false);
@@ -23,10 +24,10 @@ export function App() {
   return (
     <div className="container">
       <div id="welcome">
-        <h1>
-          <span> Hello there, </span>
-          Welcome Dashboard 👋
-        </h1>
+        <div className="header">
+          <img src="/assets/logo.png" alt="Logo" className="logo" />
+          <h1>Dashboard 👋</h1>
+        </div>
       </div>
       <div className="apps-container">
         <div id="products" />

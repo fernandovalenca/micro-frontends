@@ -68,20 +68,23 @@ html {
     gap: 16px; /* Optional: adds spacing between grid items */
   }
 
-  #products {
-    grid-column: span 1; /* Occupies one column */
-  }
-  
-  #cart {
-    grid-column: span 1; /* Occupies one column */
-  }
-  
   #budget {
-    grid-column: span 2; /* Occupies both columns */
-    /* width: 100% !important; */
+    grid-column: span 2;
+    .info-side {
+      flex: 1 0 250px;
+    }
   }
 
   .simple-card {
-    /* max-width: 100% !important; */
+    max-width: 100% !important;
     margin: 0 !important;
+  }
+  .logo {
+    width: 60px;
+    height: 60px;
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 30px;
   }

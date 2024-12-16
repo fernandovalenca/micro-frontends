@@ -2,9 +2,7 @@
   <div class="simple-card">
     <div class="header">
       <img :src="logoUrl" alt="Logo" class="logo" />
-      <h1>
-       Budget App 👋
-      </h1>
+      <h1>Budget App 👋</h1>
     </div>
 
     <div class="content">
@@ -21,7 +19,7 @@
         <div class="info-side">
           <div class="budget-input">
             <label>Total Budget: </label>
-            <input 
+            <input
               type="number"
               min="0"
               step="0.01"
@@ -30,9 +28,7 @@
               class="input"
               @input="handleBudgetInput"
             />
-            <div v-if="isOverBudget" class="warning-badge">
-              Over Budget!
-            </div>
+            <div v-if="isOverBudget" class="warning-badge">Over Budget!</div>
           </div>
 
           <div class="expense-summary">
@@ -55,7 +51,8 @@
           </div>
 
           <div v-if="isOverBudget" class="overspend-warning">
-            You're over budget by {{ formatCurrency(Math.abs(remainingBudget)) }}
+            You're over budget by
+            {{ formatCurrency(Math.abs(remainingBudget)) }}
           </div>
         </div>
       </div>
@@ -70,18 +67,13 @@ import '@micro-frontends/shared-styles';
 
 export default {
   name: 'BudgetApp',
-  
+
   data() {
     return {
       logoUrl: `${config.budgetUrl}/assets/logo.png`,
       budgetInput: '100',
-      expenses: [
-        { name: 'Rent', price: 500 },
-        { name: 'Groceries', price: 200 },
-        { name: 'Utilities', price: 150 },
-        { name: 'Entertainment', price: 100 },
-      ],
-      currentChart: null
+      expenses: [],
+      currentChart: null,
     };
   },
 
@@ -118,7 +110,7 @@ export default {
       return {
         'text-danger': this.remainingBudget < 0,
         'text-success': this.remainingBudget > 0,
-        'text-warning': this.remainingBudget === 0
+        'text-warning': this.remainingBudget === 0,
       };
     },
 
@@ -127,41 +119,45 @@ export default {
 
       // For the chart, we'll show expenses up to the budget amount
       // and highlight the overspend separately
-      const expenseData = this.expenses.map(e => e.price);
+      const expenseData = this.expenses.map((e) => e.price);
       const totalExpenses = expenseData.reduce((a, b) => a + b, 0);
       const overspend = Math.max(0, totalExpenses - this.budget);
-      
+
       if (overspend > 0) {
         return {
-          labels: [...this.expenses.map(e => e.name), 'Overspend'],
-          datasets: [{
-            data: [...expenseData, overspend],
-            backgroundColor: [
-            '#36A2EB',
-              '#FFCE56',
-              '#4BC0C0',
-              '#9966FF',
-              '#FF6384',
-            ]
-          }]
+          labels: [...this.expenses.map((e) => e.name), 'Overspend'],
+          datasets: [
+            {
+              data: [...expenseData, overspend],
+              backgroundColor: [
+                '#36A2EB',
+                '#FFCE56',
+                '#4BC0C0',
+                '#9966FF',
+                '#FF6384',
+              ],
+            },
+          ],
         };
       }
 
       const remaining = Math.max(0, this.remainingBudget);
       return {
-        labels: [...this.expenses.map(e => e.name), 'Remaining'],
-        datasets: [{
-          data: [...expenseData, remaining],
-          backgroundColor: [
-            '#4CAF50',
-            '#2196F3',
-            '#FFC107',
-            '#9C27B0',
-            '#81C784'
-          ]
-        }]
+        labels: [...this.expenses.map((e) => e.name), 'Remaining'],
+        datasets: [
+          {
+            data: [...expenseData, remaining],
+            backgroundColor: [
+              '#4CAF50',
+              '#2196F3',
+              '#FFC107',
+              '#9C27B0',
+              '#81C784',
+            ],
+          },
+        ],
       };
-    }
+    },
   },
 
   methods: {
@@ -171,7 +167,7 @@ export default {
         style: 'currency',
         currency: 'USD',
         minimumFractionDigits: 2,
-        maximumFractionDigits: 2
+        maximumFractionDigits: 2,
       }).format(value);
     },
 
@@ -180,7 +176,7 @@ export default {
       return new Intl.NumberFormat('en-US', {
         style: 'percent',
         minimumFractionDigits: 1,
-        maximumFractionDigits: 1
+        maximumFractionDigits: 1,
       }).format(value / 100);
     },
 
@@ -216,8 +212,8 @@ export default {
           responsive: true,
           maintainAspectRatio: false,
           plugins: {
-           legend: {
-              position: 'right',  
+            legend: {
+              position: 'right',
             },
             tooltip: {
               callbacks: {
@@ -226,19 +222,25 @@ export default {
                   const total = context.dataset.data.reduce((a, b) => a + b);
                   const percentage = ((value / total) * 100).toFixed(1);
                   return `${this.formatCurrency(value)} (${percentage}%)`;
-                }
-              }
-            }
-          }
-        }
+                },
+              },
+            },
+          },
+        },
       });
-    }
+    },
   },
 
   mounted() {
     if (this.isValidBudget) {
       this.updateChart();
     }
+    window.PubSub.subscribe('products-selected', (products) => {
+      this.expenses = products;
+      if (this.isValidBudget) {
+        this.updateChart();
+      }
+    });
   },
 
   beforeDestroy() {
@@ -252,9 +254,9 @@ export default {
       handler() {
         this.updateChart();
       },
-      deep: true
-    }
-  }
+      deep: true,
+    },
+  },
 };
 </script>
 
@@ -315,7 +317,7 @@ export default {
 
 .input:focus {
   outline: none;
-  border-color: #36A2EB;
+  border-color: #36a2eb;
   box-shadow: 0 0 0 2px rgba(54, 162, 235, 0.2);
 }
 
